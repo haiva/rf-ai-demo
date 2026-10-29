@@ -1,0 +1,14 @@
+.env
+.venv/
+results/
+__pycache__/
+*.pyc
+.robocop_cache/
+.robotmcp_artifacts/
+.claude/settings.local.json
+CLAUDE.local.md
+browser/
+log.html
+report.html
+output.xml
+playwright-log.txt

@@ -1,0 +1,49 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash scripts/aja.sh:*)",
+      "Bash(scripts/aja.sh:*)",
+      "Bash(robot:*)",
+      "Bash(robocop:*)",
+      "Bash(git diff:*)",
+      "Bash(git status)",
+      "Bash(grep:*)"
+    ],
+    "deny": [
+      "Read(./.env)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/hooks/run.sh\" block_secrets"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__robotmcp__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/hooks/run.sh\" guard_mcp"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/hooks/run.sh\" check_structure"
+          }
+        ]
+      }
+    ]
+  }
+}
